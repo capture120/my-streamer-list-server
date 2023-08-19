@@ -11,10 +11,10 @@ export const findUserById = (id) =>
     usersModel.findById(id);
 
 export const findUserByUsername = (username) =>
-    usersModel.findOne({ username });
+    usersModel.findOne({ username:username });
 
 export const findUserByCredentials = (username, password) =>
-    usersModel.findOne({ username, password });
+    usersModel.findOne({ username:username, password:password });
 
 export const createUser = (user) =>
     usersModel.create(user);
@@ -24,3 +24,11 @@ export const updateUser = (id, user) =>
 
 export const deleteUser = (id) =>
     usersModel.deleteOne({ _id: id });
+
+/*
+export const updatePassword = (id, password) =>
+    usersModel.updateOne({ _id: id }, { $set: { password: password } });
+
+export const findUsersWithField = () =>
+    usersModel.find({ favoriteChannel: { $exists: true } });
+*/

@@ -5,6 +5,7 @@ import session from "express-session";
 import mongoose from "mongoose";
 
 import UserController from "./users/users-controller.js";
+import ChannelsController from './channels/channels-controller.js';
 
 /* connecting to local mongodb database */
 // localhost is: mongodb://127.0.0.1:27017/<database-name>
@@ -42,5 +43,6 @@ app.use(session(sessionOptions));
 app.use(express.json()); // parse JSON from HTTP request body
 
 UserController(app);
+ChannelsController(app);
 
 app.listen(process.env.PORT || 4000);
