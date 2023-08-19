@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 
 import UserController from "./users/users-controller.js";
 import ChannelsController from './channels/channels-controller.js';
+import ReviewsController from './reviews/reviews-controller.js';
 
 /* connecting to local mongodb database */
 // localhost is: mongodb://127.0.0.1:27017/<database-name>
@@ -44,5 +45,6 @@ app.use(express.json()); // parse JSON from HTTP request body
 
 UserController(app);
 ChannelsController(app);
+ReviewsController(app);
 
 app.listen(process.env.PORT || 4000);
