@@ -11,6 +11,8 @@ const ReviewsController = (app) => {
 
     app.get('/api/reviews/:id', findReviewById);
 
+    app.put("/api/reviews/:id", updateReview);
+
     /*
     app.get('/api/reviews', findReviews)
 
@@ -67,11 +69,23 @@ const findReviewByUserIdAndTwitchId = async (req, res) => {
 // given a review id, find the review
 const findReviewById = async (req, res) => {
     const id = req.params.id;
-    const user = await reviewsDao.findReviewByInternalId(id);
+    const user = await reviewsDao.findReviewById(id);
     res.json(user);
 }
 
+// given a review id and a review object, update the review
+const updateReview = async (req, res) => {
+    const id = req.params.id;
+    const review_in_db = await reviewsDao.findReviewById(id);
+    const updated_review = req.body;
 
+    if (review_in_db) {
+        await reviewsDao.updateReview(id, updated_review);
+        res.json(updated_review);
+        return;
+    }
+    res.sendStatus(404);
+};
 
 
 
@@ -91,17 +105,5 @@ const deleteReview = async (req, res) => {
     res.json(status);
 }
 
-const updateReview = async (req, res) => {
-    const id = req.params.id;
-    const review_in_db = await reviewsDao.findReviewById(twitch_id);
-    const updated_review = req.body;
-
-    if (review_in_db) {
-        await reviewsDao.updateReview(id, updated_review);
-        res.json(updated_review);
-        return;
-    }
-    res.sendStatus(404);
-};
 
 export default ReviewsController;

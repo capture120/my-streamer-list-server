@@ -19,9 +19,10 @@ export const findAllReviewsForTwitchId = (twitch_id) => {
 export const createReview = (review) => reviewsModel.create(review);
 
 // Find a review by its internal ID
-export const findReviewByInternalId = (id) => reviewsModel.findById(id);
+export const findReviewById = (id) => reviewsModel.findById(id);
 
-
+// Update a review
+export const updateReview = (id, review) => reviewsModel.updateOne({_id: id}, {$set: review});
 
 
 
@@ -35,6 +36,5 @@ export const findReviewByInternalId = (id) => reviewsModel.findById(id);
 /*
 export const findReviewByTwitchId = (twitch_id) => reviewsModel.findOne({twitch_id: twitch_id});
 export const findAllReviews = () => reviewsModel.find();
-export const updateReview = (id, review) => reviewsModel.updateOne({_id: id}, {$set: review});
 export const deleteReview = (id) => reviewsModel.deleteOne({_id: id});
 */
