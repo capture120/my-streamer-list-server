@@ -10,16 +10,10 @@ const UserController = (app) => {
     app.post("/api/users/profile", profile);
     app.post("/api/users/logout", logout);
     
+    /*
     app.delete('/api/users/:id', deleteUser);
-
     app.put("/api/users/:id", update);
-}
-
-
-const deleteUser = async (req, res) => {
-    const id = req.params.id;
-    const status = await usersDao.deleteUser(id);
-    res.json(status);
+    */
 }
 
 const findUserById = async (req, res) => {
@@ -93,20 +87,27 @@ const logout = async (req, res) => {
     res.sendStatus(200);
 };
 
-const update = async (req, res) => {
-    const user_id = req.params["id"];
-    /* check to see if the user exists in the database */
-    const user_in_db = await usersDao.findUserById(user_id);
-    const updated_user = req.body;
+// const update = async (req, res) => {
+//     const user_id = req.params["id"];
+//     /* check to see if the user exists in the database */
+//     const user_in_db = await usersDao.findUserById(user_id);
+//     const updated_user = req.body;
 
-    if (user_in_db) {
-        await usersDao.updateUser(user_id, updated_user);
-        req.session["currentUser"] = updated_user;
-        res.json(updated_user);
-        return;
-    }
-    res.sendStatus(404);
-};
+//     if (user_in_db) {
+//         await usersDao.updateUser(user_id, updated_user);
+//         req.session["currentUser"] = updated_user;
+//         res.json(updated_user);
+//         return;
+//     }
+//     res.sendStatus(404);
+// };
+
+
+// const deleteUser = async (req, res) => {
+//     const id = req.params.id;
+//     const status = await usersDao.deleteUser(id);
+//     res.json(status);
+// }
 
 
 
