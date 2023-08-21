@@ -8,9 +8,9 @@ const ReviewsController = (app) => {
     app.get('/api/channels/:twitch_id/reviews', findAllReviewsForChannel);
 
     app.get('/api/channels/:twitch_id/reviews/:current_user_id', findReviewByUserIdAndTwitchId)
-    
-    
+
     app.get('/api/reviews/:id', findReviewById);
+
     /*
     app.get('/api/reviews', findReviews)
 
@@ -46,11 +46,17 @@ const createReview = async (req, res) => {
     }
 
     review.creator = currentUser._id;
-    review.creator_name = currentUser.username;
+    // review.creator_name = currentUser.username;
     const newReview = await reviewsDao.createReview(review);
     res.json(newReview);
 }
 
+/* !!! ALTERNATIVE: 
+    Function is open but needs more work at front end (passing currentUser)
+    consider changing to "findCurrentUserReviewForChannel" if not used beyond 
+    "find review for currentUser"
+  !!! */
+// given a twitch_id and a user_id, find the review created by that user for that channel
 const findReviewByUserIdAndTwitchId = async (req, res) => {
     const user_id = req.params.current_user_id;
     const twitch_id = req.params.twitch_id;
@@ -58,6 +64,7 @@ const findReviewByUserIdAndTwitchId = async (req, res) => {
     res.json(review);
 }
 
+// given a review id, find the review
 const findReviewById = async (req, res) => {
     const id = req.params.id;
     const user = await reviewsDao.findReviewByInternalId(id);
@@ -76,21 +83,6 @@ const findReviewById = async (req, res) => {
 
 
 /* NOT CURRENTLY IN USE */
-
-const findReviews = async (req, res) => {
-    const twitch_id = req.body.twitch_id;
-    const creator = req.body.creator;
-
-    if (twitch_id) {
-        const reviews = await reviewsDao.findAllReviewsForTwitchId(twitch_id);
-        res.json(reviews);
-    } else {
-        const reviews = await reviewsDao.findAllReviewsForTwitchId();
-        res.json(reviews);
-    }
-
-
-}
 
 
 const deleteReview = async (req, res) => {
