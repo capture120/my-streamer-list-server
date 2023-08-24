@@ -15,11 +15,27 @@ export const findAllReviewsForTwitchId = (twitch_id) => {
     return reviewsModel.find({ twitch_id: twitch_id }).sort({ date_created: -1 }).populate('creator', '-password').exec();
 }
 
+// Find all reviews for a given user, sorted by most recent date
+export const findAllReviewsForUser = (user_id) => {
+    return reviewsModel.find({ creator: user_id }).sort({ date_created: -1 }).populate('creator', '-password').exec();
+}
+
+// Find the most recent review for a given user
+export const findUserMostRecentReview = (user_id) => {
+    return reviewsModel.findOne({ creator: user_id }).sort({ date_created: -1 }).populate('creator', '-password').exec();
+}
+
+// Find all reviews, sorted by most recent date
+export const findRecentReviews = (limit) => {
+    return reviewsModel.find().sort({ date_created: -1 }).limit(limit).populate('creator', '-password').exec();
+}
+
+
 // Create a new review
 export const createReview = (review) => reviewsModel.create(review);
 
 // Find a review by its internal ID
-export const findReviewById = (id) => reviewsModel.findById(id);
+export const findReviewById = (id) => reviewsModel.findById(id).populate('creator', '-password').exec();;
 
 // Update a review
 export const updateReview = (id, review) => reviewsModel.updateOne({_id: id}, {$set: review});

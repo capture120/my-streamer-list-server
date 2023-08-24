@@ -9,9 +9,15 @@ const ReviewsController = (app) => {
 
     app.get('/api/channels/:twitch_id/reviews/:current_user_id', findReviewByUserIdAndTwitchId)
 
-    app.get('/api/reviews/:id', findReviewById);
+    app.get('/api/review/:id', findReviewById);
 
-    app.put("/api/reviews/:id", updateReview);
+    app.get('/api/reviews/recent/:limit', findRecentReviews);
+
+    app.get('/api/reviews/user/:user_id', findAllReviewsForUser);
+
+    app.get('/api/reviews/user/:user_id/most-recent', findUserMostRecentReview);
+
+    app.put("/api/review/:id", updateReview);
 
     /*
     app.get('/api/reviews', findReviews)
@@ -26,6 +32,27 @@ const ReviewsController = (app) => {
 const findAllReviewsForChannel = async (req, res) => {
     const twitch_id = req.params.twitch_id;
     const reviews = await reviewsDao.findAllReviewsForTwitchId(twitch_id);
+    res.json(reviews);
+}
+
+// given a user_id, find all reviews
+const findAllReviewsForUser = async (req, res) => {
+    const user_id = req.params.user_id;
+    const reviews = await reviewsDao.findAllReviewsForUser(user_id);
+    res.json(reviews);
+}
+
+// given a user_id, find the most recent review
+const findUserMostRecentReview = async (req, res) => {
+    const user_id = req.params.user_id;
+    const review = await reviewsDao.findUserMostRecentReview(user_id);
+    res.json(review);
+}
+
+// find all reviews, sorted by most recent date
+const findRecentReviews = async (req, res) => {
+    const limit = req.params.limit;
+    const reviews = await reviewsDao.findRecentReviews(limit);
     res.json(reviews);
 }
 

@@ -17,10 +17,10 @@ export const findUserByCredentials = (username, password) =>
     usersModel.findOne({ username:username, password:password }, {password:0});
 
 export const createUser = (user) =>
-    usersModel.create(user, {password:0});
+    usersModel.create(user);
 
 export const updateUser = (id, user) =>
-    usersModel.updateOne({ _id: id }, { $set: user, password:0 });
+    usersModel.updateOne({ _id: id }, { $set: user});
 
 export const deleteUser = (id) =>
     usersModel.deleteOne({ _id: id });
