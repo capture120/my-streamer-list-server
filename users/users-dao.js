@@ -5,7 +5,7 @@ import usersModel from "./users-model.js";
 */
 
 export const findAllUsers = () =>
-    usersModel.find({password:0});
+    usersModel.find();
 
 export const findUserById = (id) =>
     usersModel.findById(id, {password:0});

@@ -12,6 +12,7 @@ const UserController = (app) => {
     app.post("/api/users/logout", logout);
     
     app.put("/api/users/:id", update);
+    app.put("/api/users/current_user/:id", updateCurrentUser)
     /*
     app.delete('/api/users/:id', deleteUser);
     */
@@ -95,6 +96,28 @@ const logout = async (req, res) => {
 };
 
 const update = async (req, res) => {
+    const user_id = req.params["id"];
+    const updated_user = req.body;
+    /* check to see if the user exists in the database */
+    const user_in_db = await usersDao.findUserById(user_id);
+
+    if (user_in_db) {
+        await usersDao.updateUser(user_id, updated_user);
+        res.json(updated_user);
+        return;
+    }
+    res.sendStatus(404);
+};
+
+// const updateCurrentUser = async (req, res) => {
+//     const updated_user = await update(req, res);
+//     console.log(JSON.stringify(updated_user));
+//     if (updated_user) {
+//         req.session["currentUser"] = updated_user;
+//     }
+// }
+
+const updateCurrentUser = async (req, res) => {
     const user_id = req.params["id"];
     const updated_user = req.body;
     /* check to see if the user exists in the database */

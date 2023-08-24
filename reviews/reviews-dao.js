@@ -40,17 +40,5 @@ export const findReviewById = (id) => reviewsModel.findById(id).populate('creato
 // Update a review
 export const updateReview = (id, review) => reviewsModel.updateOne({_id: id}, {$set: review});
 
-
-
-
-
-
-
-
-
-
-/*
-export const findReviewByTwitchId = (twitch_id) => reviewsModel.findOne({twitch_id: twitch_id});
-export const findAllReviews = () => reviewsModel.find();
+// Delete a review
 export const deleteReview = (id) => reviewsModel.deleteOne({_id: id});
-*/

@@ -19,13 +19,7 @@ const ReviewsController = (app) => {
 
     app.put("/api/review/:id", updateReview);
 
-    /*
-    app.get('/api/reviews', findReviews)
-
     app.delete('/api/reviews/:id', deleteReview);
-
-    app.put("/api/reviews/:id", updateReview);
-    */
 }
 
 // given a twitch_id, find all reviews
@@ -114,23 +108,14 @@ const updateReview = async (req, res) => {
     res.sendStatus(404);
 };
 
-
-
-
-
-
-
-
-
-
-/* NOT CURRENTLY IN USE */
-
-
+// given a review id, delete the review
 const deleteReview = async (req, res) => {
     const id = req.params.id;
     const status = await reviewsDao.deleteReview(twitch_id);
     res.json(status);
 }
+
+
 
 
 export default ReviewsController;
