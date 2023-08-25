@@ -87,7 +87,9 @@ const profile = async (req, res) => {
         res.sendStatus(404);
         return;
     }
-    res.json(currentUser);
+    // update current session with database
+    const refresh_user = await usersDao.findUserById(currentUser._id);
+    res.json(refresh_user);
 };
 
 const logout = async (req, res) => {

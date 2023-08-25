@@ -111,7 +111,7 @@ const updateReview = async (req, res) => {
 // given a review id, delete the review
 const deleteReview = async (req, res) => {
     const id = req.params.id;
-    const status = await reviewsDao.deleteReview(twitch_id);
+    const status = await reviewsDao.deleteReview(id);
     res.json(status);
 }
 
