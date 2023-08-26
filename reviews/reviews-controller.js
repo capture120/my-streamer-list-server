@@ -90,8 +90,8 @@ const findReviewByUserIdAndTwitchId = async (req, res) => {
 // given a review id, find the review
 const findReviewById = async (req, res) => {
     const id = req.params.id;
-    const user = await reviewsDao.findReviewById(id);
-    res.json(user);
+    const review = await reviewsDao.findReviewById(id);
+    res.json(review);
 }
 
 // given a review id and a review object, update the review
